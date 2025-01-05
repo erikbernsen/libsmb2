@@ -1,4 +1,4 @@
-/* From https://github.com/bitdust/tiny-AES128-C
+/* Based on https://github.com/bitdust/tiny-AES128-C
  * Licenced as Public Domain
  */
 
