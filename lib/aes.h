@@ -22,11 +22,7 @@
 #include "config.h"
 #endif
 
-#ifdef HAVE_STDINT_H
 #include <stdint.h>
-#else
-#include <stdint.h>
-#endif
 
 void AES128_ECB_encrypt(uint8_t* input, const uint8_t* key, uint8_t *output);
 
