@@ -41,6 +41,12 @@ void AES128_ECB_encrypt_apple(const uint8_t *input, const uint8_t *key, uint8_t 
         &cryptor           
     );
 
+    // If creation was not successful then the encryption will fail, but there is no way to communicate this to caller. 
+    // The result will be that the signature doesn't match as this method is used to calculate signatures.
+    if (status != kCCSuccess) {
+        return;
+    }
+ 
     size_t dataOutMoved = 0;
     size_t dataOutAvailable = AES128_BLOCK_SIZE;
 
@@ -52,16 +58,6 @@ void AES128_ECB_encrypt_apple(const uint8_t *input, const uint8_t *key, uint8_t 
         output,          
         dataOutAvailable,
         &dataOutMoved   
-    );
-
-    // Finalize the encryption (should not produce additional output in ECB mode)
-    uint8_t finalBuffer[AES128_BLOCK_SIZE] = {0};
-    size_t finalDataOutMoved = 0;
-    status = CCCryptorFinal(
-        cryptor,       
-        finalBuffer,   
-        AES128_BLOCK_SIZE, 
-        &finalDataOutMoved 
     );
 
     // Clean up
